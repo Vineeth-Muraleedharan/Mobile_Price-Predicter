@@ -184,6 +184,11 @@ with st.spinner("Loading models..."):
 st.markdown('<p class="title">📱 Mobile Price Predictor</p>', unsafe_allow_html=True)
 st.markdown('<p class="subtitle">Enter phone specifications below to predict its market price</p>', unsafe_allow_html=True)
 
+# ── Logo ──────────────────────────────────────────────────────────────────────
+col1, col2, col3 = st.columns([1, 1, 1])
+with col2:
+    st.image("logo.png", width=180)
+
 # ── Model Selection ───────────────────────────────────────────────────────────
 st.markdown('<div class="section-label">Select Model</div>', unsafe_allow_html=True)
 selected_model = st.selectbox("", list(models.keys()), label_visibility="collapsed")
