@@ -26,7 +26,7 @@ st.markdown("""
         font-family: 'Syne', sans-serif;
         font-size: 2.2rem;
         font-weight: 800;
-        color: #0f172a;
+        color: #E3270B;
         text-align: center;
         letter-spacing: -1px;
     }
@@ -66,10 +66,10 @@ st.markdown("""
         font-family: 'Syne', sans-serif;
         font-size: 1rem;
         font-weight: 700;
-        color: #0f172a;
+        color: #E3270B;
         margin: 20px 0 10px 0;
         padding-left: 10px;
-        border-left: 3px solid #38bdf8;
+        border-left: 3px solid #E3270B;
     }
     div.stButton > button {
         width: 100%;
@@ -219,7 +219,50 @@ for i in range(0, len(col_list), cols_per_row):
         info  = feature_info[col]
         label = labels.get(col, col)
         with row_cols[j]:
-            if info['is_categorical']:
+
+            # 1. Product ID — text input (type only)
+            if col == 'Product_id':
+                val = st.text_input(label, value=str(int(info['mean'])))
+                try:
+                    user_input[col] = float(val)
+                except:
+                    user_input[col] = float(info['mean'])
+
+            # 2. CPU Frequency — slider
+            elif col == 'cpu freq':
+                user_input[col] = st.slider(
+                    label,
+                    min_value=float(info['min']),
+                    max_value=float(info['max']),
+                    value=round(float(info['mean']), 2),
+                    step=0.1
+                )
+
+            # 3. RAM — dropdown (integers only)
+            elif col == 'ram':
+                ram_options = sorted(set(
+                    range(int(info['min']), int(info['max']) + 1, 1)
+                ))
+                default_ram = min(ram_options, key=lambda x: abs(x - info['mean']))
+                user_input[col] = st.selectbox(
+                    label,
+                    options=ram_options,
+                    index=ram_options.index(default_ram)
+                )
+
+            # 4. Battery — integer only (no float)
+            elif col == 'battery':
+                user_input[col] = st.number_input(
+                    label,
+                    min_value=int(info['min']),
+                    max_value=int(info['max']),
+                    value=int(info['mean']),
+                    step=1,
+                    format="%d"
+                )
+
+            # Default — categorical dropdown or number input
+            elif info['is_categorical']:
                 user_input[col] = st.selectbox(
                     label,
                     options=info['unique_vals'],
