@@ -306,14 +306,14 @@ if predict_clicked:
     """, unsafe_allow_html=True)
 
     # Tip
-    if predicted < 200:
-        segment = "📦 Budget segment phone"
-    elif predicted < 600:
-        segment = "📱 Mid-range phone"
-    elif predicted < 1000:
-        segment = "💎 Upper mid-range phone"
+    if predicted < 1000:
+        segment = "Budget segment phone"
+    elif predicted < 2000:
+        segment = "Mid-range phone"
+    elif predicted < 280000:
+        segment = "Upper mid-range phone"
     else:
-        segment = "🏆 Flagship phone"
+        segment = "Flagship phone"
 
     st.markdown(f'<div class="tip">{segment} based on predicted price</div>',
                 unsafe_allow_html=True)
@@ -327,4 +327,4 @@ else:
 
 # ── Footer ────────────────────────────────────────────────────────────────────
 st.divider()
-st.caption("📊 Dataset: Mobile Price Prediction — Kaggle  |  Built with Streamlit")
+
