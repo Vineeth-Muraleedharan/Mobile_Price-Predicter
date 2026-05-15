@@ -2,7 +2,7 @@
 
 A machine learning web app that predicts smartphone prices based on technical specifications using multiple regression models.
 
-**🔗 Live App:** [Click to Open](https://your-app-link.streamlit.app)
+**🔗 Live App:** [Click to Open](https://mobileprice-predicter.streamlit.app/)
 
 ---
 
